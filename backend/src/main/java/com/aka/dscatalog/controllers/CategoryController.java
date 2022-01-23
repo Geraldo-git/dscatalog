@@ -3,12 +3,15 @@ package com.aka.dscatalog.controllers;
 import com.aka.dscatalog.dto.CategoryDTO;
 import com.aka.dscatalog.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -17,9 +20,21 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
+   /* @GetMapping
     ResponseEntity<List<CategoryDTO>> findAll() {
         List<CategoryDTO> list = categoryService.findAll();
+        return ResponseEntity.ok().body(list);
+    }*/
+
+    @GetMapping
+    ResponseEntity<Page<CategoryDTO>> findAllPaged(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<CategoryDTO> list = categoryService.findAllPaged(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 
