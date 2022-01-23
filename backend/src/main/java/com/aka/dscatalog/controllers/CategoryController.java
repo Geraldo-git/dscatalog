@@ -23,7 +23,7 @@ public class CategoryController {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value= "{/id}")
+    @GetMapping(value = "/{id}")
     ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
         CategoryDTO dto = categoryService.findById(id);
         return ResponseEntity.ok().body(dto);
@@ -34,6 +34,13 @@ public class CategoryController {
         dto = categoryService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
-
     }
+
+    @PutMapping(value = "/{id}")
+    ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+        dto = categoryService.update(id, dto);
+        return ResponseEntity.ok().body(dto);
+    }
+
+
 }
