@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 
@@ -45,14 +46,14 @@ public class CategoryController {
     }
 
     @PostMapping
-    ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
+    ResponseEntity<CategoryDTO> insert(@Valid @RequestBody CategoryDTO dto) {
         dto = categoryService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+    ResponseEntity<CategoryDTO> update(@PathVariable Long id, @Valid @RequestBody CategoryDTO dto) {
         dto = categoryService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
