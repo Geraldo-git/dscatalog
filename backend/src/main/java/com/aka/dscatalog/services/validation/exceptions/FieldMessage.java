@@ -1,4 +1,4 @@
-package com.aka.dscatalog.controllers.exceptions;
+package com.aka.dscatalog.services.validation.exceptions;
 
 import java.io.Serializable;
 

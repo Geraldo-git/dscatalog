@@ -1,4 +1,4 @@
-package com.aka.dscatalog.controllers.exceptions;
+package com.aka.dscatalog.services.validation.exceptions;
 
 import com.aka.dscatalog.services.exceptions.DatabaseException;
 import com.aka.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -52,9 +52,6 @@ public class ResourceExceptionHandler {
         for (FieldError f : e.getBindingResult().getFieldErrors()){
             err.addError(f.getField(), f.getDefaultMessage());
         }
-
-
-
         return ResponseEntity.status(status).body(err);
     }
 }

@@ -1,9 +1,6 @@
 package com.aka.dscatalog.services;
 
-import com.aka.dscatalog.dto.CategoryDTO;
-import com.aka.dscatalog.dto.RoleDTO;
-import com.aka.dscatalog.dto.UserDTO;
-import com.aka.dscatalog.dto.UserInsertDTO;
+import com.aka.dscatalog.dto.*;
 import com.aka.dscatalog.entities.Category;
 import com.aka.dscatalog.entities.Role;
 import com.aka.dscatalog.entities.User;
@@ -60,7 +57,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try {
             User entity = userRepository.getOne(id);
             copyDtoToEntity(dto, entity);
